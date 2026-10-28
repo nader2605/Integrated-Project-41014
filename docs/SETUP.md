@@ -8,8 +8,12 @@ The saved final suite records macOS, Python 3.14.6, MuJoCo 3.17.0, NumPy 2.5.4,
 SciPy 1.18.1 and OpenCV-contrib 5.0.0.93. These are the **recorded experiment
 versions**, not a promise that other combinations have been validated.
 `requirements.txt` is unpinned; preserve the recorded configuration when
-comparing results. Windows instructions are provided but Windows execution has
-not yet been verified.
+comparing results. One interactive Windows run of `turtlebot.py` reached
+`DOCKED`, saved its CSV log, and was successfully processed by
+`scripts/plot_results.py`. This verifies the basic Windows workflow; the full
+robustness suite has also been completed: the corrected build passed 8/8 defined
+Windows trials. See the [Windows verification report](WINDOWS_VERIFICATION.md)
+for the initial failures, correction, versions and raw evidence.
 
 Install Python and Git if needed. The MuJoCo Python package contains its runtime;
 this project does not require ROS, a physical TurtleBot or a separate MuJoCo app.
@@ -101,15 +105,28 @@ command. A 2 N push is applied at 12 simulated seconds for 0.3 s; the overlay
 identifies the scenario. You must start screen recording separately. Close
 normally to save `run_log_demo.csv`, then plot it with the environment Python:
 
+**macOS:**
+
 ```bash
 ./.venv/bin/python scripts/plot_results.py run_log_demo.csv
 ```
+
+**Windows PowerShell:**
+
+```powershell
+.\.venv\Scripts\python.exe scripts\plot_results.py run_log_demo.csv
+```
+
+For a normal `turtlebot.py` run, use `run_log_turtlebot.csv` instead of `run_log_demo.csv`
+in the command for your operating system. Close the simulation normally to
+save the log before plotting.
 
 ## Troubleshooting
 
 | Symptom | Action |
 |---|---|
 | `requirements.txt` or `main.py` not found | Change into the repository folder first. |
+| Windows launcher says the system cannot find the path | Create `.venv` and install requirements in the same folder as the `.bat` file using the Windows steps above. Each repository copy needs its own environment; deleting a copy also deletes its environment. |
 | `No module named cv2` | Install with the `.venv` Python and launch with the same interpreter. The required package is `opencv-contrib-python`. |
 | `mjpython: command not found` | Install requirements in this environment. On Mac use the explicit script command above. |
 | `bad interpreter` in a folder with spaces | Use `./.venv/bin/python .venv/bin/mjpython turtlebot.py`. |

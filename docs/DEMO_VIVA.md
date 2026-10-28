@@ -67,7 +67,7 @@ file. These are prompts for understanding, not a guaranteed list of viva questio
 | Is all control LQR? | LQR tracks local waypoints; docking/search/realignment use separate estimated-state feedback and mode logic. |
 | How are collisions avoided and checked? | Inflated scan grid, guarded commands, independent every-physics-step contact monitoring. |
 | Why can DOCKED still have nonzero actual error? | Stop uses noisy estimated state; evaluation uses actual pose separately. |
-| What do the results prove? | Eight defined development-used cases passed; not all environments, bias/dropouts or Windows. |
+| What do the results prove? | Eight defined development-used cases passed; the corrected Windows build also passed eight defined cases after rejecting invalid camera data. These development-used samples do not establish reliability in all environments or under bias/dropouts. |
 | What did you personally contribute? | Equal one-third contribution to Project 17; explain your work and how it connects to the integrated pipeline. |
 
 Recommended preparation order: [Model](MODEL.md), [Sensing](SENSING.md),

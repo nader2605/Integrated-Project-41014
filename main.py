@@ -223,13 +223,17 @@ def detect_aruco_measurement(image):
     success, rotation, translation = cv2.solvePnP(
         object_points, points.astype(np.float64), camera_matrix,
         np.zeros(5), flags=cv2.SOLVEPNP_IPPE_SQUARE)
-    if not success or not np.all(np.isfinite(translation)) or translation[2, 0] <= 0:
+    # IPPE can report success with a non-finite rotation on a near-frontal marker.
+    if (not success or not np.all(np.isfinite(rotation))
+            or not np.all(np.isfinite(translation)) or translation[2, 0] <= 0):
         return False, None, None
     # OpenCV right is robot -y; EKF bearings are positive to the left.
     lateral, _, forward = translation.flatten()
     bearing = math.atan2(-lateral, forward)
     range_m = math.hypot(lateral, forward)
     normal = cv2.Rodrigues(rotation)[0][:, 2]
+    if not np.all(np.isfinite(normal)):
+        return False, None, None
     if normal[2] > 0:
         normal = -normal
     # The station texture's horizontal mapping reverses its normal x component.
@@ -367,6 +371,9 @@ def ekf_camera_update(measured_range, measured_bearing):
         H = np.vstack([H, [0, 0, 1]])
         R = np.diag([CAMERA_RANGE_STD_M**2, CAMERA_BEARING_STD_RAD**2, CAMERA_HEADING_STD_RAD**2])
 
+    # Invalid sensor data must not corrupt the posterior or wheel commands.
+    if not np.all(np.isfinite(z)):
+        return False
     innovation = z - z_hat
     innovation[1] = wrap_angle(innovation[1])
     if len(innovation) == 3:

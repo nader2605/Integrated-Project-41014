@@ -1,0 +1,21 @@
+{
+  "case": "high_noise",
+  "seed": 19,
+  "spawn": [
+    -2.05,
+    -1.35,
+    0.0
+  ],
+  "docked": true,
+  "success": true,
+  "completion_sim_s": 65.6200000000273,
+  "elapsed_sim_s": 65.6200000000273,
+  "actual_target_error_m": 0.08344775813434464,
+  "actual_heading_error_deg": 3.939944687458973,
+  "position_rmse_m": 0.043209312910070456,
+  "collision_physics_steps": 0,
+  "contacted_geoms": [],
+  "push_control_steps": 0,
+  "samples": 3281,
+  "log": "high_noise_seed19.csv"
+}

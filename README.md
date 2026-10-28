@@ -27,7 +27,7 @@ development-used test samples, not a general reliability claim.
 | MuJoCo wheel/contact simulation | Implemented |
 | Interactive macOS navigation and docking | Demonstrated |
 | Eight-trial macOS comparison | Completed; logs and tested source snapshots retained |
-| Windows launch instructions and launcher | Provided; runtime verification pending |
+| Windows launch instructions and launcher | 8/8 defined Windows trials passed after invalid-camera rejection; [report](docs/WINDOWS_VERIFICATION.md) |
 | Hardware implementation | Outside scope |
 | Team contribution statements | Equal shares: one third each; see submission record |
 | Estimate uncertainty in demo | Live covariance ellipse, pose ±2σ display and saved uncertainty plots implemented |
@@ -139,8 +139,10 @@ condition.
 
 The comparison includes sensing and controller changes together; it does not
 isolate individual improvements. The high-noise filter covariance is adjusted to
-match the added noise. Windows, unseen environments, sensor bias/dropout and
-unknown initial localisation error remain unverified.
+match the added noise. The current build also passed the [eight-trial Windows suite](docs/WINDOWS_VERIFICATION.md)
+after fixing invalid camera measurement handling; the original Windows 6/8 run
+is retained. Unseen environments, sensor bias/dropout and unknown initial
+localisation error remain unverified.
 
 See the [experiment report](docs/RESULTS.md),
 [raw final summary](output/robustness_final/summary.csv),
@@ -184,5 +186,6 @@ See the [experiment report](docs/RESULTS.md),
 
 The longer [presentation notes](README_PRESENTATION.md) and
 [completion checklist](TRACK_A_CHECKLIST.md) are retained for team use. The
-documentation describes the code and saved evidence; it does not claim the video,
-Windows verification or publication has already been completed.
+documentation describes the code and saved evidence. A Windows interactive run
+and plotting have been verified, and the corrected build passed 8/8 defined
+Windows trials. Video recording/upload and publication remain pending.

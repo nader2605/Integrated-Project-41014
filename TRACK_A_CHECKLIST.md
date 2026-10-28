@@ -17,9 +17,10 @@ Scope: simulation-only. Hardware implementation and induction are excluded.
 - [x] LiDAR obstacle avoidance
 - [x] Visual docking stage
 - [x] Ground-truth vs estimate logging for evaluation
-- [ ] Validate/tune this exact build on the user's machine
+- [x] Verify nominal navigation, docking and plotting on the user's Windows machine
 - [x] Add ROBOTIS TurtleBot3 Waffle Pi with dynamic wheel/contact physics (`turtlebot.py`)
-- [ ] Validate dynamic TurtleBot3 on Windows
+- [x] Verify one interactive dynamic TurtleBot3 docking run on Windows
+- [x] Repeat the full fixed robustness suite on Windows; preserve initial 6/8 and corrected 8/8 evidence
 - [x] Run repeated/randomised trials and plot quantitative results (`output/robustness_comparison/`)
 - [x] Run initial eight-trial robustness suite; preserve all successes and failures (`output/robustness_initial/`)
 - [x] Improve varied-start obstacle clearance and post-disturbance docking; rerun the fixed eight-trial suite (8/8 passed)

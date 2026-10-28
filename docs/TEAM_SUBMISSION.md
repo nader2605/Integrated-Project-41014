@@ -38,7 +38,8 @@ published and accessible before submitting the repository URL.
 - [x] Implement live uncertainty/true-state display and covariance plots.
 - [ ] Record the video with that display visible during a varied/disturbed trial.
 - [ ] Review the AI-use declaration on the project home page and confirm tools/purposes accurately describe the team's use.
-- [ ] Run the current build on Windows and record the actual outcome, or retain the unverified status.
+- [x] Verify the basic Windows workflow: interactive `turtlebot.py` reached DOCKED, saved its CSV, and plotting succeeded.
+- [x] Complete and document the fixed Windows robustness suite: initial 6/8, corrected 8/8; see [Windows verification](WINDOWS_VERIFICATION.md).
 - [ ] Record the five-minute demo, upload it and add its accessible URL.
 - [ ] Push the reviewed source, documentation, assets and selected evidence.
 - [ ] Verify every README link, figure and raw evidence path on GitHub.

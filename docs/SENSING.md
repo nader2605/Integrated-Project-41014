@@ -67,6 +67,11 @@ marker translation and orientation. Horizontal camera range is
 The detector tries a mirrored image if the first detection fails, then restores
 coordinates to the original image convention.
 
+The detector rejects non-finite PnP rotation, translation or panel normal.
+The EKF separately rejects non-finite measurement vectors without changing its
+state or covariance. This prevents invalid camera headings from propagating to
+wheel commands; the Windows verification report records the motivating failures.
+
 ## Calibration checks
 
 The validation script places the simulated plant at known poses **only for the

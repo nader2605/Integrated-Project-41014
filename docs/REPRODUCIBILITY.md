@@ -19,14 +19,15 @@ require a working graphics context for camera rendering.
 ```
 
 ```powershell
-# Windows; execution remains to be verified
+# Windows; navigation and camera checks passed
 .\.venv\Scripts\python.exe scripts/check_navigation.py
 .\.venv\Scripts\python.exe scripts/validate_simulation.py --turtlebot --camera-only
 ```
 
 The geometry checks cover forward/reverse footprint braking, a path around a
 barrier, acquisition latching and docking recovery. Camera checks cover three
-rendered known poses, bearing/heading conventions and the measurement Jacobian.
+rendered known poses, bearing/heading conventions, the measurement Jacobian,
+and rejection of non-finite camera poses and EKF measurements.
 Running validation without `--camera-only` also executes a single docking
 regression trial and writes a temporary validation log. That script asserts
 controller docking and position error <0.15 m; the full suite adds heading and

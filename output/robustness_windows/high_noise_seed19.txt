@@ -1,0 +1,39 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+Controllability rank: 3/3
+Observability rank:    3/3
+LIDAR PATH + LQR | ArUco: False | camera update: False
+Progress: 10 simulated s; actual=(-1.62, -1.16, -0.54); estimate=[-1.59048275 -1.15803229 -0.54643928]; mode=LIDAR PATH + LQR; command=(0.16, -0.05463921072831132); waypoint=[-1.25635891 -1.36799922]
+Progress: 20 simulated s; actual=(-0.45, -1.35, -0.02); estimate=[-0.47724757 -1.31678433 -0.03024121]; mode=LIDAR PATH + LQR; command=(0.16, 0.032366189525268436); waypoint=[ 0.09531921 -1.32988297]
+Progress: 30 simulated s; actual=(0.57, -1.22, 0.73); estimate=[ 0.55985257 -1.20047403  0.71535279]; mode=LIDAR PATH + LQR; command=(0.16, 0.046017102255924175); waypoint=[ 0.87722018 -0.91801941]
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+Progress: 40 simulated s; actual=(0.91, -0.28, 1.34); estimate=[ 0.92958622 -0.1889814   1.35508035]; mode=ACQUIRING DOCK MARKER; command=(0.0, -0.8); waypoint=[0.92998999 0.04982584]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+DOCK REALIGNMENT | ArUco: True | camera update: True
+Progress: 50 simulated s; actual=(1.43, -0.13, 0.22); estimate=[ 1.42452082 -0.13742936  0.2317476 ]; mode=DOCK REALIGNMENT; command=(-0.06, -0.8); waypoint=[0.92998999 0.04982584]
+REACQUIRING DOCK MARKER | ArUco: False | camera update: False
+DOCK REALIGNMENT | ArUco: True | camera update: True
+REACQUIRING DOCK MARKER | ArUco: False | camera update: False
+DOCK REALIGNMENT | ArUco: True | camera update: True
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 60 simulated s; actual=(1.19, -0.08, 0.08); estimate=[ 1.20583377 -0.05143066  0.03281491]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.1, 0.1776101829770676); waypoint=[0.92998999 0.04982584]
+WARNING: Nan, Inf or huge value in CTRL at ACTUATOR 0. The simulation is unstable. Time = 62.6400.
+
+Traceback (most recent call last):
+  File "C:\Users\Daniel\Documents\Sensors and Control\Integrated-Project-41202\scripts\run_robustness.py", line 184, in <module>
+    trial(args)
+    ~~~~~^^^^^^
+  File "C:\Users\Daniel\Documents\Sensors and Control\Integrated-Project-41202\scripts\run_robustness.py", line 89, in trial
+    p.main(show_camera_window=False, realtime=False,
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           viewer_factory=lambda model, data: HeadlessViewer(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               model, math.ceil(args.max_seconds / p.DT), finished))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Daniel\Documents\Sensors and Control\Integrated-Project-41202\main.py", line 681, in main
+    draw_viewer(viewer.user_scn,observed_estimate,observed_covariance,observed_actual)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Daniel\Documents\Sensors and Control\Integrated-Project-41202\uncertainty.py", line 22, in draw_viewer
+    points = ellipse_points(estimate, covariance[:2,:2])
+  File "C:\Users\Daniel\Documents\Sensors and Control\Integrated-Project-41202\uncertainty.py", line 10, in ellipse_points
+    raise ValueError('Expected a finite 2x2 position covariance')
+ValueError: Expected a finite 2x2 position covariance

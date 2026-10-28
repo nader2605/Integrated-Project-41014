@@ -109,7 +109,10 @@ must not be interchanged.
 - Local planning assumes unseen space provisionally free. No guarantee is made
   for mazes, dynamic obstacles or sensor failure.
 - No physical charging mechanism, hardware test or hardware comparison is claimed.
-- Windows runtime is pending; final results were collected on macOS.
+- The historical final eight-trial comparison was collected on macOS. A separate
+  [Windows verification](WINDOWS_VERIFICATION.md) passed 8/8 after invalid-camera
+  rejection was added; the initial Windows 6/8 run is retained. This is not an
+  identical-source platform benchmark or an independent holdout study.
 - Historical fixed-suite pose errors include one control-step alignment offset because the
   estimate is logged before current motion and truth after it.
 

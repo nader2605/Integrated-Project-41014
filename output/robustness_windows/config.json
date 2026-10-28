@@ -1,0 +1,37 @@
+{
+  "cases": [
+    "baseline",
+    "start_pose",
+    "high_noise",
+    "push"
+  ],
+  "seeds": [
+    7,
+    19
+  ],
+  "max_seconds": 140.0,
+  "success_definition": "Controller DOCKED, actual target error <=0.15 m, actual heading error <=15 deg, zero observed hazard contact.",
+  "simulation_timestep_s": 0.002,
+  "control_timestep_s": 0.02,
+  "high_noise": "2x encoder, camera range, bearing, heading and gyro std; matched EKF noise covariance.",
+  "sensing": "72-ray 360-degree planar LiDAR; wheel encoders; camera pose; unbiased gyro with 0.02 rad/s white noise (doubled in high_noise).",
+  "push": "World +y 2 N base force, simulation time [12,12.3) s.",
+  "start_pose": "Known initial pose: x U[-2.25,-1.85], y U[-1.65,-1.10], yaw U[-15,15] deg.",
+  "platform": "win32",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "packages": {
+    "mujoco": "3.17.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "opencv-contrib-python": "5.0.0.93"
+  },
+  "source_sha256": {
+    "main.py": "ad45b1331ebee4f150a787be16bbfe71c71b3eb4b18aef3e5bc6014beca43e2a",
+    "turtlebot.py": "19519fe18cc80d22e2b28685bdeec4e6b65e1cca2e60816f23eae4d03c0aa4b3",
+    "navigation.py": "9329c8149c61ce8e92ac7667b72e120aa8f0ad723fde27a02e42027c9531882c",
+    "uncertainty.py": "f80ef7908010d4885ec4c9bd95ae45d162362b4fba6098a81e77691914a7ccb9",
+    "scripts/build_turtlebot_scene.py": "b73de9b9c41e070930e11c3bc0b23b0c9083e5e5247a356cba85e4ed7759a272",
+    "scripts/run_robustness.py": "25927a3856fe73c48442abd00b85e3189f0f2903acc5820cab68bc526f690297",
+    "scripts/headless_viewer.py": "0d59c842a22b4e41699003c694a76614f2c23da8baa4bec67a940f8e6de08d4f"
+  }
+}

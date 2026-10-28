@@ -1,0 +1,21 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+Controllability rank: 3/3
+Observability rank:    3/3
+LIDAR PATH + LQR | ArUco: False | camera update: False
+Progress: 10 simulated s; actual=(-1.62, -1.16, -0.54); estimate=[-1.59048275 -1.15803229 -0.54643928]; mode=LIDAR PATH + LQR; command=(0.16, -0.05463921072831132); waypoint=[-1.25635891 -1.36799922]
+Progress: 20 simulated s; actual=(-0.45, -1.35, -0.02); estimate=[-0.47724757 -1.31678433 -0.03024121]; mode=LIDAR PATH + LQR; command=(0.16, 0.032366189525268436); waypoint=[ 0.09531921 -1.32988297]
+Progress: 30 simulated s; actual=(0.57, -1.22, 0.73); estimate=[ 0.55985257 -1.20047403  0.71535279]; mode=LIDAR PATH + LQR; command=(0.16, 0.046017102255924175); waypoint=[ 0.87722018 -0.91801941]
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+Progress: 40 simulated s; actual=(0.91, -0.28, 1.34); estimate=[ 0.92958622 -0.1889814   1.35508035]; mode=ACQUIRING DOCK MARKER; command=(0.0, -0.8); waypoint=[0.92998999 0.04982584]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+DOCK REALIGNMENT | ArUco: True | camera update: True
+Progress: 50 simulated s; actual=(1.43, -0.13, 0.22); estimate=[ 1.42452082 -0.13742936  0.2317476 ]; mode=DOCK REALIGNMENT; command=(-0.06, -0.8); waypoint=[0.92998999 0.04982584]
+REACQUIRING DOCK MARKER | ArUco: False | camera update: False
+DOCK REALIGNMENT | ArUco: True | camera update: True
+REACQUIRING DOCK MARKER | ArUco: False | camera update: False
+DOCK REALIGNMENT | ArUco: True | camera update: True
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 60 simulated s; actual=(1.19, -0.08, 0.08); estimate=[ 1.20583377 -0.05143066  0.03281491]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.1, 0.1776101829770676); waypoint=[0.92998999 0.04982584]
+DOCKED | ArUco: True | camera update: True
+Saved run log: C:\Users\Daniel\Documents\Sensors and Control\Integrated-Project-41202\output\robustness_windows_final\high_noise_seed19.csv
+{"case": "high_noise", "seed": 19, "spawn": [-2.05, -1.35, 0.0], "docked": true, "success": true, "completion_sim_s": 65.6200000000273, "elapsed_sim_s": 65.6200000000273, "actual_target_error_m": 0.08344775813434464, "actual_heading_error_deg": 3.939944687458973, "position_rmse_m": 0.043209312910070456, "collision_physics_steps": 0, "contacted_geoms": [], "push_control_steps": 0, "samples": 3281, "log": "high_noise_seed19.csv"}

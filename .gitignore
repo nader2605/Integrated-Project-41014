@@ -2,3 +2,6 @@
 __pycache__/
 *.py[cod]
 .DS_Store
+
+# MuJoCo runtime warnings; trial transcripts are retained under output/.
+/MUJOCO_LOG.TXT

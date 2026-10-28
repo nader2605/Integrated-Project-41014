@@ -1,0 +1,17 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+Controllability rank: 3/3
+Observability rank:    3/3
+LIDAR PATH + LQR | ArUco: False | camera update: False
+Progress: 10 simulated s; actual=(-1.32, -1.30, -0.36); estimate=[-1.26636277 -1.29912828 -0.37557651]; mode=LIDAR PATH + LQR; command=(0.16, 0.00031158331319977334); waypoint=[-1.00912255 -1.40052769]
+Progress: 20 simulated s; actual=(-0.10, -1.32, 0.12); estimate=[-0.07289498 -1.37841619  0.12845583]; mode=LIDAR PATH + LQR; command=(0.16, 0.09530226313067831); waypoint=[ 0.15426208 -1.34184089]
+Progress: 30 simulated s; actual=(0.74, -1.06, 1.00); estimate=[ 0.7424292  -1.07030479  1.00311192]; mode=LIDAR PATH + LQR; command=(0.16, -0.05892464592298008); waypoint=[ 0.94395176 -0.76535956]
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+Progress: 40 simulated s; actual=(0.95, -0.23, 0.78); estimate=[ 0.93687417 -0.18677415  0.7909156 ]; mode=ACQUIRING DOCK MARKER; command=(0.0, -0.8); waypoint=[ 0.93514098 -0.00802129]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+DOCK REALIGNMENT | ArUco: True | camera update: True
+Progress: 50 simulated s; actual=(1.40, -0.09, -0.12); estimate=[ 1.40946668 -0.09174727 -0.12936057]; mode=DOCK REALIGNMENT; command=(-0.06, -0.1841841744651851); waypoint=[ 0.93514098 -0.00802129]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 60 simulated s; actual=(1.31, -0.04, 0.11); estimate=[ 1.3155058  -0.03908528  0.1057327 ]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.1, -0.01001532831607399); waypoint=[ 0.93514098 -0.00802129]
+DOCKED | ArUco: True | camera update: True
+Saved run log: C:\Users\Daniel\Documents\Sensors and Control\Integrated-Project-41202\output\robustness_windows\start_pose_seed7.csv
+{"case": "start_pose", "seed": 7, "spawn": [-2.221510025015646, -1.2012108101521313, 0.07483719436229458], "docked": true, "success": true, "completion_sim_s": 65.54000000002749, "elapsed_sim_s": 65.54000000002749, "actual_target_error_m": 0.06111583339988794, "actual_heading_error_deg": 2.096211129255225, "position_rmse_m": 0.037647777600087126, "collision_physics_steps": 0, "contacted_geoms": [], "push_control_steps": 0, "samples": 3277, "log": "start_pose_seed7.csv"}

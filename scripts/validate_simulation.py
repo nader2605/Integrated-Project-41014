@@ -3,6 +3,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import contextlib
 import tempfile
+from unittest.mock import patch
 import main as m
 import numpy as np
 if '--turtlebot' in sys.argv:
@@ -24,6 +25,19 @@ for x, y, theta in [(1., 0., 0.), (1.4, .1, -.1), (.7, -.2, .1)]:
     print('camera heading',m.camera_heading_measurement,'expected',theta)
     assert abs(m.wrap_angle(m.camera_heading_measurement-theta)) < .15
     assert found and abs(r-predicted[0]) < .05 and abs(b-predicted[1]) < .02
+# Regression: a successful PnP status is insufficient if rotation is non-finite.
+image = m.camera_image()
+with patch.object(m.cv2, 'solvePnP', return_value=(
+        True, np.full((3, 1), np.nan), np.array([[0.], [0.], [1.]]))):
+    assert m.detect_aruco_measurement(image) == (False, None, None)
+    assert m.camera_heading_measurement is None
+# The EKF also rejects invalid data if another measurement source bypasses PnP.
+state, covariance = m.x_hat.copy(), m.P.copy()
+for r, b, heading in [(np.nan, 0., 0.), (1., np.inf, 0.), (1., 0., np.nan)]:
+    with patch.object(m, 'USE_CAMERA_HEADING', True), patch.object(m, 'camera_heading_measurement', heading):
+        assert not m.ekf_camera_update(r, b)
+    assert np.array_equal(m.x_hat, state) and np.array_equal(m.P, covariance)
+print('Invalid camera pose and EKF measurement rejection checks passed.')
 if '--camera-only' in sys.argv:
     m.renderer.close()
     print('Camera measurement, heading and Jacobian checks passed.')
