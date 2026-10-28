@@ -1,0 +1,18 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+macOS: camera processing is active; separate OpenCV window disabled. Close the MuJoCo window to quit.
+Controllability rank: 3/3
+Observability rank:    3/3
+LIDAR PATH + LQR | ArUco: False | camera update: False
+Progress: 10 simulated s; actual=(-1.32, -1.30, -0.36); estimate=[-1.26636277 -1.29912828 -0.37557651]; mode=LIDAR PATH + LQR; command=(0.16, 0.0003115833131948835); waypoint=[-1.00912255 -1.40052769]
+Progress: 20 simulated s; actual=(-0.10, -1.31, 0.10); estimate=[-0.0624597  -1.38107876  0.11916975]; mode=LIDAR PATH + LQR; command=(0.16, 0.1247208905658216); waypoint=[ 0.15342636 -1.34609942]
+Progress: 30 simulated s; actual=(0.86, -0.99, 0.86); estimate=[ 0.86306322 -1.0206948   0.84931602]; mode=LIDAR PATH + LQR; command=(0.0, 0.8); waypoint=[ 0.96522029 -0.40991185]
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+Progress: 40 simulated s; actual=(0.96, -0.25, 0.56); estimate=[ 0.94162271 -0.22110197  0.53930365]; mode=ACQUIRING DOCK MARKER; command=(0.0, -0.6163748494474697); waypoint=[0.94066381 0.03319729]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+DOCK REALIGNMENT | ArUco: True | camera update: True
+Progress: 50 simulated s; actual=(1.40, -0.11, -0.15); estimate=[ 1.41205023 -0.09525547 -0.16687122]; mode=DOCK REALIGNMENT; command=(-0.06, -0.13201550752841804); waypoint=[0.94066381 0.03319729]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 60 simulated s; actual=(1.31, -0.05, 0.11); estimate=[ 1.30892267 -0.04845066  0.10302917]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.1, 0.03765522411727362); waypoint=[0.94066381 0.03319729]
+DOCKED | ArUco: True | camera update: True
+Saved run log: /Users/danielhiguerey/Documents/Sensor and Control/Integrated-Project-41202/output/robustness_final/start_pose_seed7.csv
+{"case": "start_pose", "seed": 7, "spawn": [-2.221510025015646, -1.2012108101521313, 0.07483719436229458], "docked": true, "success": true, "completion_sim_s": 64.34000000003029, "elapsed_sim_s": 64.34000000003029, "actual_target_error_m": 0.07687894474574539, "actual_heading_error_deg": 3.2144458158077693, "position_rmse_m": 0.039205035587413874, "collision_physics_steps": 0, "contacted_geoms": [], "push_control_steps": 0, "samples": 3217, "log": "start_pose_seed7.csv"}

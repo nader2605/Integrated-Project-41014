@@ -1,0 +1,11 @@
+metric,value
+result,No DOCKED state recorded
+wall_time_to_first_docked_s,
+actual_target_error_m,1.4837061835456866
+estimated_target_error_m,0.6000620039480274
+actual_heading_error_deg,82.09603520462214
+position_rmse_through_docking_m,0.5628989744120456
+maximum_position_error_through_docking_m,0.9203949387584771
+heading_rmse_through_docking_deg,39.92927068999736
+aruco_detection_fraction_through_docking,0.06871428571428571
+actual_path_length_through_docking_m,2.9371731362502462

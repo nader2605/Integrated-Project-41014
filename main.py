@@ -1,5 +1,6 @@
 import csv
 import math
+import sys
 import time
 from pathlib import Path
 
@@ -17,7 +18,8 @@ DT = 0.02
 CAMERA_WIDTH = 640
 CAMERA_HEIGHT = 480
 CAMERA_FOV_Y = math.radians(60.0)
-ARUCO_SIZE_M = 0.50
+ARUCO_SIZE_M = 0.68 * 700 / 980  # Black square, excluding the generated white margin.
+CAMERA_OFFSET_M = 0.18
 
 WHEEL_RADIUS = 0.033
 WHEEL_BASE = 0.160
@@ -30,25 +32,34 @@ FRONT_LIMIT = 0.68
 CLEAR_LIMIT = 0.90
 SIDE_CLEAR_LIMIT = 0.55
 
-PREDOCK_X = 1.55
+PREDOCK_X = 0.95
 PREDOCK_Y = 0.00
-DOCK_X = 2.10
+DOCK_X = 1.55
 DOCK_Y = 0.00
 DOCK_HEADING = 0.0
-DOCK_DISTANCE = 0.38
+DOCK_DISTANCE = 0.10
+FINAL_ALIGNMENT_DISTANCE = 0.08
+NAVIGATION_POLICY = None
+DOCK_HEADING_TOLERANCE = math.radians(12)
+LAST_COMMAND = (0., 0.)
+YAW_INCREMENT = None
+YAW_INCREMENT_VARIANCE = 0.
 
 # Known landmark location used by the EKF camera measurement model.
-LANDMARK_X = 2.45
+LANDMARK_X = 2.45 - 0.059
 LANDMARK_Y = 0.00
 
 # Encoder noise is applied to wheel travel measurements, not to ground truth motion.
 ENCODER_STD_M = 0.0007
 CAMERA_RANGE_STD_M = 0.05
 CAMERA_BEARING_STD_RAD = math.radians(2.0)
+CAMERA_HEADING_STD_RAD = math.radians(8.0)
+camera_heading_measurement = None
+USE_CAMERA_HEADING = False
 
-# EKF covariance matrices.
-EKF_Q = np.diag([0.0008, 0.0008, math.radians(0.8) ** 2])
+# Camera covariance; prediction covariance is derived from wheel noise below.
 EKF_R = np.diag([CAMERA_RANGE_STD_M ** 2, CAMERA_BEARING_STD_RAD ** 2])
+PLANT_PROCESS_COV = np.zeros((3, 3))
 
 # LQR penalties.
 LQR_Q = np.diag([7.0, 7.0, 2.5])
@@ -184,6 +195,8 @@ def _detect_marker_once(image):
 
 
 def detect_aruco_measurement(image):
+    global camera_heading_measurement
+    camera_heading_measurement = None
     found, points = _detect_marker_once(image)
     mirrored = False
 
@@ -200,17 +213,25 @@ def detect_aruco_measurement(image):
         points[:, 0] = CAMERA_WIDTH - points[:, 0]
 
     centre_x = float(np.mean(points[:, 0]))
-
-    top_width = np.linalg.norm(points[1] - points[0])
-    bottom_width = np.linalg.norm(points[2] - points[3])
-    marker_width_px = max(1.0, float((top_width + bottom_width) / 2.0))
-
-    bearing = math.atan2(
-        centre_x - CAMERA_WIDTH / 2.0,
-        focal_x
-    )
-
-    range_m = (focal_x * ARUCO_SIZE_M) / marker_width_px
+    half = ARUCO_SIZE_M / 2
+    object_points = np.array([[-half, half, 0], [half, half, 0],
+                              [half, -half, 0], [-half, -half, 0]], dtype=np.float64)
+    camera_matrix = np.array([[focal_x, 0, CAMERA_WIDTH / 2],
+                              [0, focal_y, CAMERA_HEIGHT / 2], [0, 0, 1]])
+    success, rotation, translation = cv2.solvePnP(
+        object_points, points.astype(np.float64), camera_matrix,
+        np.zeros(5), flags=cv2.SOLVEPNP_IPPE_SQUARE)
+    if not success or not np.all(np.isfinite(translation)) or translation[2, 0] <= 0:
+        return False, None, None
+    # OpenCV right is robot -y; EKF bearings are positive to the left.
+    lateral, _, forward = translation.flatten()
+    bearing = math.atan2(-lateral, forward)
+    range_m = math.hypot(lateral, forward)
+    normal = cv2.Rodrigues(rotation)[0][:, 2]
+    if normal[2] > 0:
+        normal = -normal
+    # The station texture's horizontal mapping reverses its normal x component.
+    camera_heading_measurement = -math.atan2(normal[0], -normal[2])
 
     cv2.polylines(
         image,
@@ -284,6 +305,8 @@ def ekf_predict(left_distance, right_distance):
 
     ds = (right_distance + left_distance) / 2.0
     dtheta = (right_distance - left_distance) / WHEEL_BASE
+    if YAW_INCREMENT is not None:
+        dtheta = YAW_INCREMENT
 
     theta_mid = x_hat[2] + dtheta / 2.0
 
@@ -297,12 +320,23 @@ def ekf_predict(left_distance, right_distance):
         [0.0, 0.0, 1.0]
     ])
 
-    P = F @ P @ F.T + EKF_Q
+    G = np.array([[0.5 * math.cos(theta_mid) + ds * math.sin(theta_mid) / (2 * WHEEL_BASE),
+                   0.5 * math.cos(theta_mid) - ds * math.sin(theta_mid) / (2 * WHEEL_BASE)],
+                  [0.5 * math.sin(theta_mid) - ds * math.cos(theta_mid) / (2 * WHEEL_BASE),
+                   0.5 * math.sin(theta_mid) + ds * math.cos(theta_mid) / (2 * WHEEL_BASE)],
+                  [-1 / WHEEL_BASE, 1 / WHEEL_BASE]])
+    if YAW_INCREMENT is not None:
+        G = np.array([[.5*math.cos(theta_mid), .5*math.cos(theta_mid)],
+                      [.5*math.sin(theta_mid), .5*math.sin(theta_mid)], [0.,0.]])
+    P = F @ P @ F.T + G @ (np.eye(2) * ENCODER_STD_M ** 2) @ G.T + PLANT_PROCESS_COV
+    if YAW_INCREMENT is not None:
+        gyro_jacobian = np.array([-.5*ds*math.sin(theta_mid), .5*ds*math.cos(theta_mid), 1.])
+        P += np.outer(gyro_jacobian,gyro_jacobian)*YAW_INCREMENT_VARIANCE
 
 
 def camera_prediction_and_jacobian(state):
-    dx = LANDMARK_X - state[0]
-    dy = LANDMARK_Y - state[1]
+    dx = LANDMARK_X - state[0] - CAMERA_OFFSET_M * math.cos(state[2])
+    dy = LANDMARK_Y - state[1] - CAMERA_OFFSET_M * math.sin(state[2])
     q = max(dx * dx + dy * dy, 1e-9)
     r = math.sqrt(q)
 
@@ -313,6 +347,8 @@ def camera_prediction_and_jacobian(state):
         [-dx / r, -dy / r, 0.0],
         [ dy / q, -dx / q, -1.0]
     ])
+    H[0, 2] = CAMERA_OFFSET_M * (dx * math.sin(state[2]) - dy * math.cos(state[2])) / r
+    H[1, 2] = -1 - CAMERA_OFFSET_M * (dy * math.sin(state[2]) + dx * math.cos(state[2])) / q
 
     return np.array([predicted_range, predicted_bearing]), H
 
@@ -322,18 +358,30 @@ def ekf_camera_update(measured_range, measured_bearing):
 
     z = np.array([measured_range, measured_bearing])
     z_hat, H = camera_prediction_and_jacobian(x_hat)
+    R = EKF_R
+    if USE_CAMERA_HEADING and camera_heading_measurement is not None:
+        z = np.append(z, wrap_angle(camera_heading_measurement + RNG.normal(0, CAMERA_HEADING_STD_RAD)))
+        z_hat = np.append(z_hat, x_hat[2])
+        H = np.vstack([H, [0, 0, 1]])
+        R = np.diag([CAMERA_RANGE_STD_M**2, CAMERA_BEARING_STD_RAD**2, CAMERA_HEADING_STD_RAD**2])
 
     innovation = z - z_hat
     innovation[1] = wrap_angle(innovation[1])
+    if len(innovation) == 3:
+        innovation[2] = wrap_angle(innovation[2])
 
-    S = H @ P @ H.T + EKF_R
+    S = H @ P @ H.T + R
+    if innovation @ np.linalg.solve(S, innovation) > (11.34 if len(innovation) == 3 else 9.21):
+        return False
     K = P @ H.T @ np.linalg.inv(S)
 
     x_hat = x_hat + K @ innovation
     x_hat[2] = wrap_angle(x_hat[2])
 
     I = np.eye(3)
-    P = (I - K @ H) @ P
+    residual = I - K @ H
+    P = residual @ P @ residual.T + K @ R @ K.T
+    return True
 
 
 # SECTION 8 — STATE-SPACE MODEL + LQR
@@ -366,7 +414,7 @@ def lqr_to_target(target_x, target_y, final_heading=None):
     dy = target_y - x_hat[1]
     distance = math.hypot(dx, dy)
 
-    if final_heading is None or distance > 0.35:
+    if final_heading is None or distance > FINAL_ALIGNMENT_DISTANCE:
         target_heading = math.atan2(dy, dx)
     else:
         target_heading = final_heading
@@ -381,7 +429,7 @@ def lqr_to_target(target_x, target_y, final_heading=None):
     try:
         K = lqr_gain(A, B)
         correction = -K @ error
-        v = nominal_speed + float(correction[0])
+        v = float(correction[0])
         omega = float(correction[1])
     except Exception:
         # Stable fallback if the local Riccati solve becomes ill-conditioned.
@@ -391,6 +439,12 @@ def lqr_to_target(target_x, target_y, final_heading=None):
 
     v = float(np.clip(v, 0.0, MAX_SPEED))
     omega = float(np.clip(omega, -MAX_TURN, MAX_TURN))
+    # Turn towards the target before translating; the forward-only plant
+    # cannot follow a local LQR solution when the goal is behind it.
+    heading_error = wrap_angle(target_heading - x_hat[2])
+    if abs(heading_error) > 0.45:
+        v = 0.0
+        omega = float(np.clip(1.8 * heading_error, -MAX_TURN, MAX_TURN))
 
     return v, omega, distance
 
@@ -457,15 +511,33 @@ def write_log():
 # SECTION 11 — MAIN LOOP
 
 
-def main():
+def main(show_camera_window=None, viewer_factory=None, realtime=True):
+    global LAST_COMMAND
+    # mjpython reserves the macOS main thread for Cocoa. OpenCV HighGUI
+    # windows cannot safely run on its Python worker thread.
+    if show_camera_window is None:
+        show_camera_window = sys.platform != "darwin"
+    if sys.platform == "darwin" and not show_camera_window:
+        print("macOS: camera processing is active; separate OpenCV window disabled. Close the MuJoCo window to quit.")
     avoiding = False
     avoidance_direction = 0
     docked = False
+    approaching_dock = False
+    docking_frames = 0
+    last_status = None
     start_run = time.time()
 
     analyse_model()
 
-    with mujoco.viewer.launch_passive(model, data) as viewer:
+    launch_viewer = mujoco.viewer.launch_passive if viewer_factory is None else viewer_factory
+    with launch_viewer(model, data) as viewer:
+        with viewer.lock():
+            label = viewer.user_scn.geoms[0]
+            mujoco.mjv_initGeom(label, mujoco.mjtGeom.mjGEOM_LABEL,
+                               np.zeros(3), np.array([2.45, 0, 1.3]),
+                               np.eye(3).flatten(), np.array([0.2, 1, 0.2, 1]))
+            label.label = "CHARGING STATION"
+            viewer.user_scn.ngeom = 1
         viewer.cam.distance = 6.2
         viewer.cam.azimuth = 135
         viewer.cam.elevation = -50
@@ -488,10 +560,11 @@ def main():
             image = camera_image()
             marker_found, measured_range, measured_bearing = detect_aruco_measurement(image)
 
+            camera_accepted = False
             if marker_found:
                 noisy_range = measured_range + RNG.normal(0.0, CAMERA_RANGE_STD_M)
                 noisy_bearing = measured_bearing + RNG.normal(0.0, CAMERA_BEARING_STD_RAD)
-                ekf_camera_update(noisy_range, noisy_bearing)
+                camera_accepted = ekf_camera_update(noisy_range, noisy_bearing)
 
             # NATIVE RANGE SENSORS
             readings = read_range_sensors()
@@ -507,11 +580,17 @@ def main():
                 DOCK_X - x_hat[0],
                 DOCK_Y - x_hat[1]
             )
+            if distance_to_predock < 0.30:
+                approaching_dock = True
 
             if docked:
                 v_cmd = 0.0
                 w_cmd = 0.0
                 mode = "DOCKED"
+
+            elif NAVIGATION_POLICY is not None:
+                v_cmd, w_cmd, mode = NAVIGATION_POLICY(
+                    readings, camera_accepted, measured_range, measured_bearing)
 
             elif obstacle_detected:
                 avoiding = True
@@ -536,7 +615,7 @@ def main():
                     )
                     mode = "LIDAR AVOIDANCE"
 
-            elif distance_to_predock > 0.45:
+            elif not approaching_dock:
                 v_cmd, w_cmd, _ = lqr_to_target(PREDOCK_X, PREDOCK_Y)
                 mode = "LQR NAVIGATION"
 
@@ -552,13 +631,30 @@ def main():
                 v_cmd = min(v_cmd, 0.10)
                 mode = "VISUAL EKF + LQR DOCKING" if marker_found else "LQR DOCK APPROACH"
 
-            if distance_to_dock <= DOCK_DISTANCE:
+            # Odometry alone can stop at a fictitious target after wheel slip.
+            # Search for the landmark rather than settling without visual lock.
+            if NAVIGATION_POLICY is None and approaching_dock and not docked and not marker_found and distance_to_dock < 0.35:
+                predicted_camera, _ = camera_prediction_and_jacobian(x_hat)
+                search_bearing = predicted_camera[1]
+                v_cmd = 0.0
+                w_cmd = float(np.clip(1.2 * search_bearing, -.6, .6)) if abs(search_bearing) > .1 else .15
+                mode = "SEARCHING FOR DOCK MARKER"
+
+            visual_docking = (
+                camera_accepted and distance_to_dock <= DOCK_DISTANCE
+                and abs(wrap_angle(x_hat[2] - DOCK_HEADING)) < DOCK_HEADING_TOLERANCE
+                and abs(measured_bearing) < math.radians(8)
+                and abs(measured_range - (LANDMARK_X - DOCK_X - CAMERA_OFFSET_M)) < 0.12
+            )
+            docking_frames = docking_frames + 1 if visual_docking else 0
+            if docked or docking_frames >= 15:
                 docked = True
                 v_cmd = 0.0
                 w_cmd = 0.0
                 mode = "DOCKED"
 
             # CONTROLLER OUTPUT -> WHEEL COMMANDS -> PLANT
+            LAST_COMMAND = (v_cmd, w_cmd)
             left_cmd, right_cmd = body_to_wheels(v_cmd, w_cmd)
             move_true_robot(left_cmd, right_cmd)
 
@@ -576,20 +672,29 @@ def main():
             cv2.putText(image, f"Est error: {estimate_error:.3f} m", (15, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1)
             cv2.putText(image, f"Wheel cmd L/R: {left_cmd:.2f}, {right_cmd:.2f} rad/s", (15, 174), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1)
 
-            cv2.imshow("Robot Camera", image)
+            if show_camera_window:
+                cv2.imshow("Robot Camera", image)
+            status = f"{mode} | ArUco: {marker_found} | camera update: {camera_accepted}"
+            if mode != last_status:
+                print(status)
+                last_status = mode
+            if hasattr(viewer, "set_texts"):
+                viewer.set_texts((None, None, "Mode\nArUco / accepted\nEstimated dock distance\nEvaluation position error",
+                                  f"{mode}\n{marker_found} / {camera_accepted}\n{distance_to_dock:.2f} m\n{estimate_error:.2f} m"))
             viewer.sync()
 
             log_step(time.time() - start_run, mode, front, marker_found)
 
-            if cv2.waitKey(1) & 0xFF == ord("q"):
+            if show_camera_window and cv2.waitKey(1) & 0xFF == ord("q"):
                 break
 
             elapsed = time.time() - loop_start
-            if elapsed < DT:
+            if realtime and elapsed < DT:
                 time.sleep(DT - elapsed)
 
     write_log()
-    cv2.destroyAllWindows()
+    if show_camera_window:
+        cv2.destroyAllWindows()
     renderer.close()
 
 

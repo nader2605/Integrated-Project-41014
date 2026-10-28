@@ -1,0 +1,21 @@
+{
+  "case": "start_pose",
+  "seed": 19,
+  "spawn": [
+    -2.163229256557363,
+    -1.4322027236584522,
+    -0.017339411051153213
+  ],
+  "docked": true,
+  "success": true,
+  "completion_sim_s": 62.94000000003157,
+  "elapsed_sim_s": 62.94000000003157,
+  "actual_target_error_m": 0.07201073479098483,
+  "actual_heading_error_deg": 3.170010773248892,
+  "position_rmse_m": 0.04396013880904593,
+  "collision_physics_steps": 0,
+  "contacted_geoms": [],
+  "push_control_steps": 0,
+  "samples": 3147,
+  "log": "start_pose_seed19.csv"
+}

@@ -1,0 +1,11 @@
+metric,value
+result,DOCKED
+wall_time_to_first_docked_s,51.641664028167725
+actual_target_error_m,0.0768789447457454
+estimated_target_error_m,0.0739255501962118
+actual_heading_error_deg,3.2144458158077693
+position_rmse_through_docking_m,0.039205035587413874
+maximum_position_error_through_docking_m,0.09623940116448709
+heading_rmse_through_docking_deg,0.7429707813050656
+aruco_detection_fraction_through_docking,0.6005595275101026
+actual_path_length_through_docking_m,5.325122177306385

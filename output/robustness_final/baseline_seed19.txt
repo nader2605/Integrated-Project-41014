@@ -1,0 +1,18 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+macOS: camera processing is active; separate OpenCV window disabled. Close the MuJoCo window to quit.
+Controllability rank: 3/3
+Observability rank:    3/3
+LIDAR PATH + LQR | ArUco: False | camera update: False
+Progress: 10 simulated s; actual=(-1.63, -1.17, -0.55); estimate=[-1.59021657 -1.15139558 -0.55643682]; mode=LIDAR PATH + LQR; command=(0.16, -0.0712564317010381); waypoint=[-1.25672659 -1.36771502]
+Progress: 20 simulated s; actual=(-0.50, -1.43, -0.21); estimate=[-0.52212693 -1.457238   -0.20740273]; mode=LIDAR PATH + LQR; command=(0.16, 0.002129139439545182); waypoint=[-0.29276304 -1.50533686]
+Progress: 30 simulated s; actual=(0.61, -1.19, 0.66); estimate=[ 0.59636159 -1.20656157  0.65546257]; mode=LIDAR PATH + LQR; command=(0.16, 0.0673686994461847); waypoint=[ 0.94441502 -0.92938012]
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+Progress: 40 simulated s; actual=(0.93, -0.26, 1.34); estimate=[ 0.94938732 -0.19588117  1.33920236]; mode=ACQUIRING DOCK MARKER; command=(0.0, -0.8); waypoint=[0.98965325 0.03765195]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+DOCK REALIGNMENT | ArUco: True | camera update: True
+Progress: 50 simulated s; actual=(1.43, -0.11, 0.21); estimate=[ 1.42780939 -0.11217719  0.22088123]; mode=DOCK REALIGNMENT; command=(-0.06, -0.8); waypoint=[0.98965325 0.03765195]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 60 simulated s; actual=(1.21, -0.06, 0.09); estimate=[ 1.2109403  -0.05891921  0.07729132]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.1, 0.13152905622258695); waypoint=[0.98965325 0.03765195]
+DOCKED | ArUco: True | camera update: True
+Saved run log: /Users/danielhiguerey/Documents/Sensor and Control/Integrated-Project-41202/output/robustness_final/baseline_seed19.csv
+{"case": "baseline", "seed": 19, "spawn": [-2.05, -1.35, 0.0], "docked": true, "success": true, "completion_sim_s": 66.58000000002507, "elapsed_sim_s": 66.58000000002507, "actual_target_error_m": 0.06500254672901613, "actual_heading_error_deg": 2.6530960308219065, "position_rmse_m": 0.03582232541783703, "collision_physics_steps": 0, "contacted_geoms": [], "push_control_steps": 0, "samples": 3329, "log": "baseline_seed19.csv"}

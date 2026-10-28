@@ -1,0 +1,32 @@
+{
+  "cases": [
+    "baseline",
+    "start_pose",
+    "high_noise",
+    "push"
+  ],
+  "seeds": [
+    7,
+    19
+  ],
+  "max_seconds": 140.0,
+  "success_definition": "Controller DOCKED, actual target error <=0.15 m, actual heading error <=15 deg, zero observed hazard contact.",
+  "simulation_timestep_s": 0.002,
+  "control_timestep_s": 0.02,
+  "high_noise": "2x encoder, camera range, bearing and heading std; matched EKF measurement covariance.",
+  "push": "World +y 2 N base force, simulation time [12,12.3) s.",
+  "start_pose": "Known initial pose: x U[-2.25,-1.85], y U[-1.65,-1.10], yaw U[-15,15] deg.",
+  "platform": "darwin",
+  "python": "3.14.6 | packaged by Anaconda, Inc. | (main, Jul  9 2026, 14:30:20) [Clang 20.1.8 ]",
+  "packages": {
+    "mujoco": "3.17.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "opencv-contrib-python": "5.0.0.93"
+  },
+  "source_sha256": {
+    "main.py": "64f2f91040a0da514ef81e31a408995645d16e4e081bf1cbe62602994d2c4294",
+    "turtlebot.py": "0ddcc4ed42bbcbc86c4cd2ad0bdb0f7268ee2b22d46287070a932f3753b5b0ca",
+    "scripts/build_turtlebot_scene.py": "4e53f8fe162f0eab08274dfb5a8baf1fedb0fbc2ed211a2ce440da288f252c53"
+  }
+}

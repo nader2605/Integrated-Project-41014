@@ -1,0 +1,21 @@
+{
+  "case": "baseline",
+  "seed": 7,
+  "spawn": [
+    -2.05,
+    -1.35,
+    0.0
+  ],
+  "docked": true,
+  "success": true,
+  "completion_sim_s": 85.23999999998158,
+  "elapsed_sim_s": 85.23999999998158,
+  "actual_target_error_m": 0.0680031757461256,
+  "actual_heading_error_deg": 2.2554761530500076,
+  "position_rmse_m": 0.050310205625995426,
+  "collision_physics_steps": 0,
+  "contacted_geoms": [],
+  "push_control_steps": 0,
+  "samples": 4262,
+  "log": "baseline_seed7.csv"
+}

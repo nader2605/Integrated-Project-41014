@@ -1,0 +1,22 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+macOS: camera processing is active; separate OpenCV window disabled. Close the MuJoCo window to quit.
+Controllability rank: 3/3
+Observability rank:    3/3
+LIDAR PATH + LQR | ArUco: False | camera update: False
+Progress: 10 simulated s; actual=(-1.62, -1.15, -0.52); estimate=[-1.60622063 -1.14922168 -0.54414243]; mode=LIDAR PATH + LQR; command=(0.16, -0.05589309623736649); waypoint=[-1.25829268 -1.36678868]
+Progress: 20 simulated s; actual=(-1.00, -1.29, 1.33); estimate=[-0.93075016 -1.35998124  1.28604265]; mode=LIDAR PATH + LQR; command=(0.0, 0.55); waypoint=[-0.94753961 -0.76300843]
+Progress: 30 simulated s; actual=(-0.98, -0.93, -0.52); estimate=[-0.9340832  -0.90535026 -0.57320118]; mode=LIDAR PATH + LQR; command=(0.0, -0.55); waypoint=[-0.53635934 -1.32016905]
+Progress: 40 simulated s; actual=(0.03, -1.36, 0.06); estimate=[ 0.04697154 -1.42268938  0.07881935]; mode=LIDAR PATH + LQR; command=(0.16, -0.1925605532579951); waypoint=[ 0.36637291 -1.41545501]
+Progress: 50 simulated s; actual=(0.80, -1.04, 0.88); estimate=[ 0.78539875 -0.99707699  0.8638857 ]; mode=LIDAR PATH + LQR; command=(0.16, -0.19343709902990322); waypoint=[ 0.89945475 -0.88094679]
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+Progress: 60 simulated s; actual=(0.94, -0.33, 0.50); estimate=[ 0.96685097 -0.34040505  0.52029371]; mode=ACQUIRING DOCK MARKER; command=(0.0, -0.55); waypoint=[ 0.94630696 -0.0041211 ]
+LIDAR PATH + LQR | ArUco: True | camera update: True
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 70 simulated s; actual=(1.15, -0.16, 0.30); estimate=[ 1.16375145 -0.17338007  0.30349077]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.1, -0.006283387562526066); waypoint=[ 0.95484752 -0.00928726]
+DOCK REALIGNMENT | ArUco: True | camera update: True
+Progress: 80 simulated s; actual=(1.20, -0.05, -0.18); estimate=[ 1.16946862 -0.07631343 -0.17163452]; mode=DOCK REALIGNMENT; command=(-0.06, -0.03984800152638508); waypoint=[ 0.95484752 -0.00928726]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+DOCKED | ArUco: True | camera update: True
+Saved run log: /Users/danielhiguerey/Documents/Sensor and Control/Integrated-Project-41202/output/robustness_final/high_noise_seed7.csv
+{"case": "high_noise", "seed": 7, "spawn": [-2.05, -1.35, 0.0], "docked": true, "success": true, "completion_sim_s": 89.5199999999716, "elapsed_sim_s": 89.5199999999716, "actual_target_error_m": 0.05621534381513673, "actual_heading_error_deg": 1.5572988923292284, "position_rmse_m": 0.0627215741040592, "collision_physics_steps": 0, "contacted_geoms": [], "push_control_steps": 0, "samples": 4476, "log": "high_noise_seed7.csv"}

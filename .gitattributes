@@ -1,0 +1,4 @@
+# Preserve standard CSV CRLF records and the upstream model's exact bytes.
+*.csv whitespace=cr-at-eol
+*.stl binary
+vendor/** -whitespace

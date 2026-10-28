@@ -1,0 +1,21 @@
+{
+  "case": "push",
+  "seed": 7,
+  "spawn": [
+    -2.05,
+    -1.35,
+    0.0
+  ],
+  "docked": true,
+  "success": true,
+  "completion_sim_s": 84.25999999998386,
+  "elapsed_sim_s": 84.25999999998386,
+  "actual_target_error_m": 0.06420211185659282,
+  "actual_heading_error_deg": 2.9268498205935956,
+  "position_rmse_m": 0.05450434113666952,
+  "collision_physics_steps": 0,
+  "contacted_geoms": [],
+  "push_control_steps": 15,
+  "samples": 4213,
+  "log": "push_seed7.csv"
+}

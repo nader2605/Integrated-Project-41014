@@ -1,0 +1,83 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+macOS: camera processing is active; separate OpenCV window disabled. Close the MuJoCo window to quit.
+Controllability rank: 3/3
+Observability rank:    3/3
+LQR NAVIGATION | ArUco: False | camera update: False
+LIDAR AVOIDANCE | ArUco: False | camera update: False
+LQR RESUME | ArUco: False | camera update: False
+LQR NAVIGATION | ArUco: False | camera update: False
+LIDAR AVOIDANCE | ArUco: True | camera update: True
+LQR RESUME | ArUco: False | camera update: False
+LQR NAVIGATION | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+LQR DOCK APPROACH | ArUco: False | camera update: False
+SEARCHING FOR DOCK MARKER | ArUco: False | camera update: False
+Saved run log: output/robustness_initial/start_pose_seed19.csv
+{"case": "start_pose", "seed": 19, "spawn": [-2.163229256557363, -1.4322027236584522, -0.017339411051153213], "docked": false, "success": false, "completion_sim_s": null, "elapsed_sim_s": 139.99999999994276, "actual_target_error_m": 1.5333850293338123, "actual_heading_error_deg": 64.82088526839892, "position_rmse_m": 0.8921608656702643, "collision_physics_steps": 46667, "contacted_geoms": ["obstacle_orange"], "push_control_steps": 0, "samples": 7000, "log": "start_pose_seed19.csv"}

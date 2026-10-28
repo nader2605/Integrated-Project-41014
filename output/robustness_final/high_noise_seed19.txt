@@ -1,0 +1,20 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+macOS: camera processing is active; separate OpenCV window disabled. Close the MuJoCo window to quit.
+Controllability rank: 3/3
+Observability rank:    3/3
+LIDAR PATH + LQR | ArUco: False | camera update: False
+Progress: 10 simulated s; actual=(-1.62, -1.16, -0.54); estimate=[-1.59048275 -1.15803229 -0.54643928]; mode=LIDAR PATH + LQR; command=(0.16, -0.05463921072829578); waypoint=[-1.25635891 -1.36799922]
+Progress: 20 simulated s; actual=(-0.47, -1.34, -0.01); estimate=[-0.47870386 -1.32834515 -0.01969416]; mode=LIDAR PATH + LQR; command=(0.16, 0.03279757645490809); waypoint=[ 0.0935545  -1.33534156]
+Progress: 30 simulated s; actual=(0.69, -1.12, 0.66); estimate=[ 0.67270605 -1.13338987  0.65036747]; mode=LIDAR PATH + LQR; command=(0.16, 0.03292642950625427); waypoint=[ 0.95427835 -0.91505816]
+ACQUIRING DOCK MARKER | ArUco: False | camera update: False
+Progress: 40 simulated s; actual=(0.88, -0.25, 1.33); estimate=[ 0.90488611 -0.19083523  1.34494201]; mode=ACQUIRING DOCK MARKER; command=(0.0, -0.8); waypoint=[ 0.90445895 -0.0014333 ]
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 50 simulated s; actual=(1.40, -0.11, 0.26); estimate=[ 1.41983018 -0.12076472  0.27645934]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.05857641962048451, -0.10711735443729582); waypoint=[ 0.90445895 -0.0014333 ]
+DOCK REALIGNMENT | ArUco: True | camera update: True
+REACQUIRING DOCK MARKER | ArUco: False | camera update: False
+DOCK REALIGNMENT | ArUco: True | camera update: True
+VISUAL STATE-FEEDBACK DOCKING | ArUco: True | camera update: True
+Progress: 60 simulated s; actual=(1.20, -0.05, 0.07); estimate=[ 1.23146178 -0.05252563  0.05830918]; mode=VISUAL STATE-FEEDBACK DOCKING; command=(0.1, 0.13669968290452159); waypoint=[ 0.90445895 -0.0014333 ]
+DOCKED | ArUco: True | camera update: True
+Saved run log: /Users/danielhiguerey/Documents/Sensor and Control/Integrated-Project-41202/output/robustness_final/high_noise_seed19.csv
+{"case": "high_noise", "seed": 19, "spawn": [-2.05, -1.35, 0.0], "docked": true, "success": true, "completion_sim_s": 65.18000000002833, "elapsed_sim_s": 65.18000000002833, "actual_target_error_m": 0.0821710251752645, "actual_heading_error_deg": 2.9357504802889562, "position_rmse_m": 0.0354142430094844, "collision_physics_steps": 0, "contacted_geoms": [], "push_control_steps": 0, "samples": 3259, "log": "high_noise_seed19.csv"}

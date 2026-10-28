@@ -1,0 +1,25 @@
+TurtleBot3 Waffle Pi: dynamic wheel-contact plant; encoders read wheel joints.
+macOS: camera processing is active; separate OpenCV window disabled. Close the MuJoCo window to quit.
+Controllability rank: 3/3
+Observability rank:    3/3
+LQR NAVIGATION | ArUco: False | camera update: False
+LIDAR AVOIDANCE | ArUco: False | camera update: False
+LQR RESUME | ArUco: False | camera update: False
+LQR NAVIGATION | ArUco: False | camera update: False
+LIDAR AVOIDANCE | ArUco: False | camera update: False
+LQR RESUME | ArUco: False | camera update: False
+LQR NAVIGATION | ArUco: False | camera update: False
+LIDAR AVOIDANCE | ArUco: False | camera update: False
+LQR RESUME | ArUco: False | camera update: False
+LQR NAVIGATION | ArUco: False | camera update: False
+LIDAR AVOIDANCE | ArUco: True | camera update: True
+LQR RESUME | ArUco: False | camera update: False
+LQR NAVIGATION | ArUco: False | camera update: False
+LIDAR AVOIDANCE | ArUco: True | camera update: True
+LQR RESUME | ArUco: True | camera update: True
+LQR NAVIGATION | ArUco: True | camera update: True
+LQR DOCK APPROACH | ArUco: False | camera update: False
+VISUAL EKF + LQR DOCKING | ArUco: True | camera update: True
+DOCKED | ArUco: True | camera update: True
+Saved run log: output/robustness_initial/high_noise_seed7.csv
+{"case": "high_noise", "seed": 7, "spawn": [-2.05, -1.35, 0.0], "docked": true, "success": true, "completion_sim_s": 56.38000000002355, "elapsed_sim_s": 56.38000000002355, "actual_target_error_m": 0.12624784936856406, "actual_heading_error_deg": 10.827489146187334, "position_rmse_m": 0.10734727815325304, "collision_physics_steps": 0, "contacted_geoms": [], "push_control_steps": 0, "samples": 2819, "log": "high_noise_seed7.csv"}
