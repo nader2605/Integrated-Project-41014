@@ -12,7 +12,7 @@ or submit to Canvas.
 
 ## Review before committing
 
-1. Confirm the team names and contribution statements.
+1. Include the three team members and their equal one-third contribution statements.
 2. Add the actual demo URL when available; keep its current pending status until then.
 3. Review the model assumptions, fixed-suite numbers and Windows verification status.
 4. Include the current simulation source and vendored model, not only the README:

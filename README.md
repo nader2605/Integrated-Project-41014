@@ -38,8 +38,9 @@ development-used test samples, not a general reliability claim.
 and MuJoCo implementation/adaptation, troubleshooting, estimator/controller
 changes, experiment automation, quantitative analysis, figures and drafting this
 documentation. The documented tests were executed in the project workspace.
-The team is responsible for reviewing the material, confirming individual
-contribution statements and explaining the submitted pipeline. Team review is pending.
+Daniel Higuerey-Morales, Lucas Nader and Sidhanth Varma contributed equally,
+with each member contributing one third (33⅓%) to Project 17. Each member is
+responsible for understanding and explaining the submitted pipeline.
 
 ## Run the latest simulation
 

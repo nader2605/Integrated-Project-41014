@@ -15,7 +15,7 @@ submission record after recording.
 | 1:05–1:50 | Sensor/estimator diagram, calibration table, error plot | Camera geometry, frames, encoder distance, gyro yaw increment and EKF correction |
 | 1:50–3:20 | Continuous current-build navigation and docking | LiDAR planning, LQR waypoints, marker acquisition and any recovery manoeuvre; finish with accepted marker and DOCKED |
 | 3:20–4:25 | Before/after figure and trial table | Same pass criteria; 4/8 to 8/8; actual docking errors; no observed contacts; sensing and control both changed |
-| 4:25–5:00 | Limitations, repository and contribution summary | Small seed set, known initial pose, idealised sensors, Windows status and team-confirmed contributions |
+| 4:25–5:00 | Limitations, repository and contribution summary | Small seed set, known initial pose, idealised sensors, Windows status and equal one-third contributions |
 
 The demonstration segment allows about 90 seconds because revised fixed trials
 took 62.9–89.5 simulated seconds. Record a complete run first; slow rendering
@@ -68,7 +68,7 @@ file. These are prompts for understanding, not a guaranteed list of viva questio
 | How are collisions avoided and checked? | Inflated scan grid, guarded commands, independent every-physics-step contact monitoring. |
 | Why can DOCKED still have nonzero actual error? | Stop uses noisy estimated state; evaluation uses actual pose separately. |
 | What do the results prove? | Eight defined development-used cases passed; not all environments, bias/dropouts or Windows. |
-| What did you personally contribute? | Only the team's confirmed, accurate contribution record. |
+| What did you personally contribute? | Equal one-third contribution to Project 17; explain your work and how it connects to the integrated pipeline. |
 
 Recommended preparation order: [Model](MODEL.md), [Sensing](SENSING.md),
 [Estimation](ESTIMATION.md), [Control](CONTROL.md), then [Results](RESULTS.md).

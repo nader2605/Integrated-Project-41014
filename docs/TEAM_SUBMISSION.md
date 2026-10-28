@@ -14,10 +14,8 @@
 | Lucas Nader | 1/3 (33⅓%) | Equal shared contribution to the team project. |
 | Sidhanth Varma | 1/3 (33⅓%) | Equal shared contribution to the team project. |
 
-Daniel requested an equal three-way split. This records the reported share
-without assigning unreported specialist roles or implying every member performed
-each task identically. All members should review the shared statement and be
-prepared to explain their own work and the integrated pipeline in the viva.
+Daniel Higuerey-Morales, Lucas Nader and Sidhanth Varma contributed equally to
+Project 17. Each member's contribution share is one third (33⅓%).
 
 ## Submission links
 
@@ -36,7 +34,7 @@ published and accessible before submitting the repository URL.
 ## Remaining actions
 
 - [ ] Team reviews the source, equations, results and limitations.
-- [x] Record the requested equal three-way contribution split.
+- [x] Record equal one-third contributions for all three members.
 - [x] Implement live uncertainty/true-state display and covariance plots.
 - [ ] Record the video with that display visible during a varied/disturbed trial.
 - [ ] Review the AI-use declaration on the project home page and confirm tools/purposes accurately describe the team's use.

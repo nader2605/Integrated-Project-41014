@@ -28,7 +28,7 @@ Scope: simulation-only. Hardware implementation and induction are excluded.
 - [ ] Publish GitHub project page with code, model/analysis and quantitative results
 - [x] Draft GitHub README and technical documentation for Project 17
 - [x] Add the required generative-AI tools/purpose declaration to the project page
-- [x] Record equal one-third contribution shares as requested; members review the shared statement
+- [x] Record equal one-third contributions for all three members
 - [x] Implement live uncertainty ellipse/pose bounds and covariance logging alongside true state
 - [ ] Record the disturbed demo with uncertainty visible and upload the video
 - [ ] Record five-minute simulation demo video
