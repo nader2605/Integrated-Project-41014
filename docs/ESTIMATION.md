@@ -126,11 +126,20 @@ checks validate range, bearing and heading. A separate gyro-frame check integrat
 a noiseless turn to approximately 0.6150 rad versus 0.6157 rad actual yaw change;
 ground truth was used only to assess the check.
 
-The per-step log records the estimate before the current motion and actual pose
-after it, so reported instantaneous errors include a one-control-step alignment
-offset. The logs do not contain P, innovations or normalized-innovation traces;
-statistical consistency is therefore not established by the saved evidence.
-Bias, dropouts and unknown initial state remain untested.
+The historical fixed-suite logs record the estimate before motion and actual
+pose after it, so those reported errors include a one-control-step offset. New
+logs align actual pose, estimate and posterior P before current motion. They
+record all six independent P entries and simulation time. The live display adds
+a 2D joint 95% position ellipse (chi-square factor 5.99146) and marginal ±2σ values;
+new state plots show each estimate and true state with its marginal ±2σ band.
+
+For a calibrated Gaussian, ±2σ represents approximately 95.45% per component;
+the 2D joint 95% ellipse uses a different scale. Neither is a guaranteed actual
+error bound. Innovations/normalized-innovation histories are still not logged,
+and statistical consistency is not established merely by drawing uncertainty.
+Bias, dropouts and unknown initial state remain untested. The original eight-trial
+results are retained unchanged; the added visualisation has a separate disturbed
+regression under `output/uncertainty_validation/`.
 
 Implementation: `main.py` functions `ekf_predict`,
 `camera_prediction_and_jacobian`, `ekf_camera_update`; sensor input adapter:

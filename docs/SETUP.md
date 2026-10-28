@@ -88,9 +88,22 @@ evidence run; manual commands would change the experiment.
 | Estimated dock distance | Distance from estimated base pose to the target |
 | Evaluation position error | Actual-versus-estimated position difference; evaluation only |
 
-The 72 yellow rays are a LiDAR visualisation. Their presence is not proof of
+The 72 yellow rays are an optional LiDAR visualisation, now hidden by default
+in the viewer so the orange covariance ellipse is readable. Sensing remains
+active. Estimated and true pose plus marginal ±2σ values are shown in the overlay;
+the ellipse is a joint 95% position region under the filter model. Their presence is not proof of
 calibration or successful navigation. `DOCKED` is a controller decision, not an
 independent measurement of actual docking error; use the trial metrics for that.
+
+For video footage of a disturbed case, open `Record Demo.command` (Mac) or
+`Record Demo.bat` (Windows), or replace `turtlebot.py` with `demo.py` in the launch
+command. A 2 N push is applied at 12 simulated seconds for 0.3 s; the overlay
+identifies the scenario. You must start screen recording separately. Close
+normally to save `run_log_demo.csv`, then plot it with the environment Python:
+
+```bash
+./.venv/bin/python scripts/plot_results.py run_log_demo.csv
+```
 
 ## Troubleshooting
 

@@ -110,8 +110,16 @@ must not be interchanged.
   for mazes, dynamic obstacles or sensor failure.
 - No physical charging mechanism, hardware test or hardware comparison is claimed.
 - Windows runtime is pending; final results were collected on macOS.
-- Per-step pose errors include one control-step alignment offset because the
+- Historical fixed-suite pose errors include one control-step alignment offset because the
   estimate is logged before current motion and truth after it.
+
+The later uncertainty update does not change control inputs, filter tuning or the
+eight-trial evidence. A separate push-seed-7 regression reproduced 84.26 simulated
+seconds, 0.0642 m actual target error and zero hazard contacts while logging
+posterior covariance. New logs align pose/estimate/covariance before motion;
+their RMSE need not equal the older, one-step-offset metric. The covariance plot
+in the README comes from that new regression, not retrofitted covariance for the
+original eight runs.
 
 ## Evidence locations
 

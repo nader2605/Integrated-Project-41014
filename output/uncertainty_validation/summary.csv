@@ -1,0 +1,2 @@
+case,seed,spawn,docked,success,completion_sim_s,elapsed_sim_s,actual_target_error_m,actual_heading_error_deg,position_rmse_m,collision_physics_steps,contacted_geoms,push_control_steps,samples,log
+push,7,"[-2.05, -1.35, 0.0]",True,True,84.25999999998386,84.25999999998386,0.06420211185659282,2.9268498205935956,0.05511650971800499,0,[],15,4213,push_seed7.csv

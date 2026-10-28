@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "seed": 7,
+  "sim_seconds": 84.25999999998386,
+  "actual_error_m": 0.06420211185659282,
+  "actual_heading_error_deg": 2.9268498205935956,
+  "contacted_geoms": [],
+  "push_physics_steps": 150
+}

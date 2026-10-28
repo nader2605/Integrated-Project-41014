@@ -2,9 +2,9 @@
 
 The canonical GitHub project page is now [README.md](README.md), with the full
 technical report under [docs/](docs/TEAM_SUBMISSION.md). These notes remain a
-team operating reference. The supplied v2 guide additionally requires video
-uncertainty evidence; the existing logs omit covariance histories, so that
-display still needs to be captured before final submission.
+team operating reference. The uncertainty display is now implemented: use
+`Record Demo.command` / `Record Demo.bat` for a push demonstration with estimated
+state, covariance uncertainty and true pose. Screen recording/upload remain team tasks.
 
 ## Platform support
 

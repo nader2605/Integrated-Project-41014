@@ -29,8 +29,8 @@ development-used test samples, not a general reliability claim.
 | Eight-trial macOS comparison | Completed; logs and tested source snapshots retained |
 | Windows launch instructions and launcher | Provided; runtime verification pending |
 | Hardware implementation | Outside scope |
-| Team contribution statements | Awaiting team confirmation |
-| Estimate uncertainty in demo | Required by the supplied guide; covariance visualisation still to be captured |
+| Team contribution statements | Equal shares: one third each; see submission record |
+| Estimate uncertainty in demo | Live covariance ellipse, pose ±2σ display and saved uncertainty plots implemented |
 
 ## Generative AI declaration
 
@@ -69,10 +69,32 @@ trials took approximately 63–90 **simulated** seconds. Rendering can make elap
 wall-clock time different. Close the viewer normally to save `run_log_turtlebot.csv`.
 The next interactive run overwrites that file, so preserve logs you need.
 
-The yellow lines visualise the 72 LiDAR rays. `DOCKED` means the estimated-state
+LiDAR rays are hidden in the viewer by default to keep uncertainty visible;
+range sensing stays active. Re-enable the rangefinder visualisation in MuJoCo
+visualisation options if needed. `DOCKED` means the estimated-state
 and camera confirmation conditions have been met; actual error is checked
 separately in the experiment runner. The overlay's **evaluation position error**
 is EKF error, not distance to the docking target.
+
+## Record the disturbed demo with uncertainty
+
+Open **Record Demo.command** on Mac or **Record Demo.bat** on Windows. These
+launch `demo.py`, which applies the same 2 N lateral push at 12 simulated seconds
+for 0.3 s. They start the simulation, not an automatic screen recorder. Record
+the window yourself, keep the uncertainty overlay visible, then close normally
+to save `run_log_demo.csv`. The video URL remains pending until recording/upload.
+
+The orange ellipse is the filter's **joint 95% position region** under its Gaussian
+covariance model. The overlay also shows estimated and true x/y/yaw and **marginal
+±2σ** values. Those are different confidence conventions; neither guarantees the
+actual error is inside the displayed bounds. True pose is shown for evaluation only.
+
+![Estimated state with covariance uncertainty and true state in a push trial](docs/assets/state-uncertainty.png)
+
+New logs save covariance and align true/estimated pose before the current motion.
+The original eight-trial evidence remains unchanged. A separate disturbed-run
+regression verified covariance logging and preserved the earlier push-seed-7
+docking outcome; it is not counted as another eight-trial robustness suite.
 
 ## Pipeline
 

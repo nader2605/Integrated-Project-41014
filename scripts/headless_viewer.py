@@ -8,7 +8,7 @@ import numpy as np
 class HeadlessViewer:
     def __init__(self, model, max_steps, finished):
         self.cam = SimpleNamespace(lookat=np.zeros(3))
-        self.user_scn = mujoco.MjvScene(model, maxgeom=10)
+        self.user_scn = mujoco.MjvScene(model, maxgeom=128)
         self.max_steps = max_steps
         self.finished = finished
         self.steps = 0

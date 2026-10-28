@@ -6,8 +6,9 @@
 
 The root `README.md` is the repository project landing page. Technical documents
 are under `docs/`; its figures are in `docs/assets/`. GitHub renders these
-Markdown files when they are committed and pushed. This documentation task does
-not itself push, create a video URL, enable Pages or submit to Canvas.
+Markdown files when they are committed and pushed. Publication is recorded in
+Git history; these files do not automatically create a video URL, enable Pages
+or submit to Canvas.
 
 ## Review before committing
 

@@ -22,13 +22,15 @@ took 62.9–89.5 simulated seconds. Record a complete run first; slow rendering
 may take longer in wall time. If footage is edited or accelerated, identify that
 clearly rather than presenting accelerated playback as real-time performance.
 
-**Required evidence still to prepare:** the supplied v2 guide asks for at least
-one varied/disturbed trial and the estimate **with its uncertainty** alongside
-true state. Choose a complete varied-start or push trial, not only the nominal
-run. Current CSVs and plots show pose/error, but do not log P or show covariance
-bounds. Do not present an error curve as uncertainty. Capture covariance-based
-bounds or an uncertainty ellipse with the corresponding estimate/truth before
-recording the final video; this document does not claim that addition is done.
+**Required footage:** the supplied v2 guide asks for at least one varied/disturbed
+trial and the estimate **with its uncertainty** alongside true state. Open
+`Record Demo.command` on Mac or `Record Demo.bat` on Windows to start the push
+demo. The launcher does not record the screen automatically. Record the live
+orange 95% position ellipse and the estimated/true pose and marginal ±2σ overlay.
+Close normally to save `run_log_demo.csv`; then generate a full state plot with
+`python scripts/plot_results.py run_log_demo.csv` using the project interpreter.
+The resulting `state_uncertainty.png` supplements the footage. Historical logs
+without covariance still produce the older plots, with no invented uncertainty.
 
 ## Recording checklist
 

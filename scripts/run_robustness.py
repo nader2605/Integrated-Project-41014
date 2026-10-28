@@ -118,7 +118,7 @@ def suite(args):
                     platform=sys.platform, python=sys.version,
                     packages={name: version(name) for name in ('mujoco', 'numpy', 'scipy', 'opencv-contrib-python')},
                     source_sha256={name: hashlib.sha256((ROOT/name).read_bytes()).hexdigest()
-                                   for name in ('main.py', 'turtlebot.py', 'navigation.py', 'scripts/build_turtlebot_scene.py',
+                                   for name in ('main.py', 'turtlebot.py', 'navigation.py', 'uncertainty.py', 'scripts/build_turtlebot_scene.py',
                                                 'scripts/run_robustness.py', 'scripts/headless_viewer.py')})
     for name in metadata['source_sha256']:
         target = out / 'source' / name

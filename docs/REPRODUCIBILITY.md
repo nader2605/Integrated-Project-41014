@@ -82,8 +82,14 @@ shown in terminal/viewer status but is not a separate per-step CSV column.
 The JSON's simulated duration comes from MuJoCo time after settling. With the
 current fixed loop it equals `samples * 0.02` to floating-point tolerance.
 
-The logs do not include covariance/innovation histories or a desired trajectory
-time series. Therefore saved pose RMSE is an estimation metric, and final target
+Historical eight-trial logs do not include covariance. New logs add `sim_time_s`
+and the six independent posterior covariance entries `P_xx`, `P_xy`, `P_xtheta`,
+`P_yy`, `P_ytheta`, `P_thetatheta` before the range/detection/mode fields. True pose,
+estimate and covariance are sampled together before motion. Old logs remain
+supported; their uncertainty cannot be reconstructed from error data alone.
+
+Neither format includes innovation histories or a desired trajectory time
+series. Therefore saved pose RMSE is an estimation metric, and final target
 error is a docking metric; neither is a complete time-indexed trajectory-tracking
 RMSE. Do not label them interchangeably in the report.
 
@@ -98,6 +104,13 @@ Outputs include trajectory and error PNGs, metrics CSV and a Markdown summary.
 Suite-log plots are placed under that suite's `plots/<trial>/`, preserving older
 figures. `--output path/to/folder` explicitly selects a destination. A run without
 `DOCKED` is labelled accordingly; its final error must not be called docking error.
+
+For new covariance logs, plotting also creates `state_uncertainty.png` with
+estimated and true x/y/yaw and marginal ±2σ bands. Trajectory plots add joint 2D
+95% position ellipses. These are distinct probability conventions and rely on the
+filter's covariance model, not guaranteed error bounds. Use
+`python scripts/validate_demo.py` for an offscreen push-demo, covariance sanity
+check and viewer-graphics preview; it writes `output/uncertainty_demo_validation/`.
 
 Interactive `run_log_turtlebot.csv` is overwritten at the next normal shutdown.
 The suite never uses that file as trial output. Preserve a demonstration log

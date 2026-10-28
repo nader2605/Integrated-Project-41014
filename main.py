@@ -9,6 +9,7 @@ import mujoco
 import mujoco.viewer
 import numpy as np
 from scipy.linalg import solve_discrete_are
+from uncertainty import draw_viewer
 
 
 # SECTION 1 — SETTINGS
@@ -44,6 +45,7 @@ DOCK_HEADING_TOLERANCE = math.radians(12)
 LAST_COMMAND = (0., 0.)
 YAW_INCREMENT = None
 YAW_INCREMENT_VARIANCE = 0.
+RUN_LABEL = 'Nominal run'
 
 # Known landmark location used by the EKF camera measurement model.
 LANDMARK_X = 2.45 - 0.059
@@ -481,11 +483,13 @@ def obstacle_avoidance(front, left, right, direction):
 log_rows = []
 
 
-def log_step(t, mode, front, marker_found):
+def log_step(t, mode, front, marker_found, actual, estimate, covariance, sim_time):
     log_rows.append([
         t,
-        true_x, true_y, true_theta,
-        x_hat[0], x_hat[1], x_hat[2],
+        *actual, *estimate,
+        sim_time,
+        covariance[0,0], covariance[0,1], covariance[0,2],
+        covariance[1,1], covariance[1,2], covariance[2,2],
         front,
         int(marker_found),
         mode
@@ -499,6 +503,7 @@ def write_log():
             "time_s",
             "true_x", "true_y", "true_theta",
             "est_x", "est_y", "est_theta",
+            "sim_time_s", "P_xx", "P_xy", "P_xtheta", "P_yy", "P_ytheta", "P_thetatheta",
             "front_range_m",
             "aruco_detected",
             "mode"
@@ -526,11 +531,15 @@ def main(show_camera_window=None, viewer_factory=None, realtime=True):
     docking_frames = 0
     last_status = None
     start_run = time.time()
+    start_sim = data.time
 
     analyse_model()
 
     launch_viewer = mujoco.viewer.launch_passive if viewer_factory is None else viewer_factory
     with launch_viewer(model, data) as viewer:
+        if hasattr(viewer, 'opt'):
+            # Viewer-only: sensor rendering and range measurements are unchanged.
+            viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_RANGEFINDER] = False
         with viewer.lock():
             label = viewer.user_scn.geoms[0]
             mujoco.mjv_initGeom(label, mujoco.mjtGeom.mjGEOM_LABEL,
@@ -654,6 +663,10 @@ def main(show_camera_window=None, viewer_factory=None, realtime=True):
                 mode = "DOCKED"
 
             # CONTROLLER OUTPUT -> WHEEL COMMANDS -> PLANT
+            # Capture a time-aligned posterior and actual pose before this move.
+            observed_actual = np.array([true_x,true_y,true_theta])
+            observed_estimate, observed_covariance = x_hat.copy(), P.copy()
+            observed_sim_time = float(data.time-start_sim)
             LAST_COMMAND = (v_cmd, w_cmd)
             left_cmd, right_cmd = body_to_wheels(v_cmd, w_cmd)
             move_true_robot(left_cmd, right_cmd)
@@ -662,7 +675,10 @@ def main(show_camera_window=None, viewer_factory=None, realtime=True):
             previous_right_cmd = right_cmd
 
             # DISPLAY
-            estimate_error = math.hypot(true_x - x_hat[0], true_y - x_hat[1])
+            estimate_error = np.linalg.norm(observed_actual[:2]-observed_estimate[:2])
+            sigma = np.sqrt(np.maximum(np.diag(observed_covariance),0))
+            with viewer.lock():
+                draw_viewer(viewer.user_scn,observed_estimate,observed_covariance,observed_actual)
 
             cv2.putText(image, mode, (15, 28), cv2.FONT_HERSHEY_SIMPLEX, 0.58, (0, 255, 255), 2)
             cv2.putText(image, f"Obstacle: {obstacle_detected}", (15, 54), cv2.FONT_HERSHEY_SIMPLEX, 0.48, (0, 0, 255) if obstacle_detected else (0, 255, 0), 1)
@@ -679,11 +695,16 @@ def main(show_camera_window=None, viewer_factory=None, realtime=True):
                 print(status)
                 last_status = mode
             if hasattr(viewer, "set_texts"):
-                viewer.set_texts((None, None, "Mode\nArUco / accepted\nEstimated dock distance\nEvaluation position error",
-                                  f"{mode}\n{marker_found} / {camera_accepted}\n{distance_to_dock:.2f} m\n{estimate_error:.2f} m"))
+                viewer.set_texts((None, None,
+                    "Mode\nArUco / accepted\nEstimated dock distance\nEvaluation position error\nEKF x / y / yaw\nTrue x / y / yaw (evaluation)\nMarginal +/-2 sigma x / y / yaw\n95% XY ellipse (orange)\nScenario",
+                    f"{mode}\n{marker_found} / {camera_accepted}\n{distance_to_dock:.2f} m\n{estimate_error:.2f} m\n"
+                    f"{observed_estimate[0]:.2f} / {observed_estimate[1]:.2f} m / {math.degrees(observed_estimate[2]):.1f} deg\n"
+                    f"{observed_actual[0]:.2f} / {observed_actual[1]:.2f} m / {math.degrees(observed_actual[2]):.1f} deg\n"
+                    f"{2*sigma[0]:.3f} / {2*sigma[1]:.3f} m / {math.degrees(2*sigma[2]):.1f} deg\nModel only; no error guarantee\n{RUN_LABEL}"))
             viewer.sync()
 
-            log_step(time.time() - start_run, mode, front, marker_found)
+            log_step(time.time()-start_run, mode, front, marker_found,
+                     observed_actual,observed_estimate,observed_covariance,observed_sim_time)
 
             if show_camera_window and cv2.waitKey(1) & 0xFF == ord("q"):
                 break
