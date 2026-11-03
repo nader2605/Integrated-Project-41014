@@ -20,7 +20,9 @@ development-used test samples, not a general reliability claim.
 
 ## Demo and verification status
 
-**Five-minute demo video:** not yet recorded; the team will add its URL here.
+**Five-minute demo video:**
+
+https://youtu.be/izdPVd2hKX8
 
 | Item | Status |
 |---|---|
